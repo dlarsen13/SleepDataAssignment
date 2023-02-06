@@ -8,7 +8,8 @@ string? resp = Console.ReadLine();
 
 if (resp == "1")
 {
-        // create data file
+            // create file
+    StreamWriter sw = new StreamWriter("data.txt");
 
     // ask a question
     Console.WriteLine("How many weeks of data is needed?");
@@ -35,10 +36,11 @@ if (resp == "1")
             hours[i] = rnd.Next(4, 13);
         }
         // M/d/yyyy,#|#|#|#|#|#|#
-        Console.WriteLine($"{dataDate:M/d/yy},{string.Join("|", hours)}");
+        sw.WriteLine($"{dataDate:M/d/yy},{string.Join("|", hours)}");
         // add 1 week to date
         dataDate = dataDate.AddDays(7);
     }
+    sw.Close();
 }
 else if (resp == "2")
 {
