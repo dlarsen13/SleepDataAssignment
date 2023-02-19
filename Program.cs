@@ -59,19 +59,34 @@ while(running)
             StreamReader sr = new StreamReader(dir + "\\data.txt");
             do
             {
+                // read in next line of file
                 currentLine = sr.ReadLine();
+                // split into an array by the comma, sperating date and hours slept
                 commaSplit = currentLine.Split(",");
+                // converting date into dateTime value and applying formatting
                 entryDate = Convert.ToDateTime(commaSplit[0]);
                 Console.WriteLine("Week of{0: MMM, dd, yyyy}", entryDate);
+                // non-data dependant formatting that I just hardcoded in
                 Console.WriteLine(" Su Mo Tu We Th Fr Sa");
                 Console.WriteLine(" -- -- -- -- -- -- --");
+                // throwing the array into a list
                 pipeSplitter.AddRange(commaSplit);
+                // removing the dateTime value so the list is only the hours slept
                 pipeSplitter.RemoveAt(0);
+                // throwing the list back into string format
                 currentLine = String.Join('|', pipeSplitter);
+                // immediately splitting the data by the pipe, making an array of only hours slept
                 pipeSplit = currentLine.Split("|");
+                // looping through the sleep data array to display final output
                 foreach (string s in pipeSplit)
                 {
-                    Console.Write($"{s} ");
+                    // if/else statement to check the value's length and apply appropriate spacing
+                    if (s.Length == 1){
+                        Console.Write($"  {s}");
+                    }
+                    else{
+                        Console.Write($" {s}");
+                    }
                 }
                 Console.WriteLine($"\n");
                 pipeSplitter.Clear();
