@@ -5,6 +5,8 @@ string[] commaSplit;
 string[] pipeSplit;
 DateTime entryDate;
 List<string> pipeSplitter = new List<string>();
+int total;
+double average;
 
 // ask for input
 while(running)
@@ -67,8 +69,8 @@ while(running)
                 entryDate = Convert.ToDateTime(commaSplit[0]);
                 Console.WriteLine("Week of{0: MMM, dd, yyyy}", entryDate);
                 // non-data dependant formatting that I just hardcoded in
-                Console.WriteLine(" Su Mo Tu We Th Fr Sa");
-                Console.WriteLine(" -- -- -- -- -- -- --");
+                Console.WriteLine(" Su Mo Tu We Th Fr Sa Tot Avg");
+                Console.WriteLine(" -- -- -- -- -- -- -- --- ---");
                 // throwing the array into a list
                 pipeSplitter.AddRange(commaSplit);
                 // removing the dateTime value so the list is only the hours slept
@@ -78,6 +80,7 @@ while(running)
                 // immediately splitting the data by the pipe, making an array of only hours slept
                 pipeSplit = currentLine.Split("|");
                 // looping through the sleep data array to display final output
+                total = 0;
                 foreach (string s in pipeSplit)
                 {
                     // if/else statement to check the value's length and apply appropriate spacing
@@ -87,7 +90,10 @@ while(running)
                     else{
                         Console.Write($" {s}");
                     }
+                    total += Convert.ToInt32(s);
                 }
+                average = total / 7.0;
+                Console.Write("  {0} {1:0.0}", total, average);
                 Console.WriteLine($"\n");
                 pipeSplitter.Clear();
             }while (sr.Peek() > 0);
