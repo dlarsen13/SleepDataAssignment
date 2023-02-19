@@ -1,5 +1,9 @@
 ﻿string dir = Directory.GetCurrentDirectory();
-Boolean running = true;
+bool running = true;
+string currentLine;
+string[] commaSplit;
+
+
 // ask for input
 while(running)
 {
@@ -47,11 +51,17 @@ while(running)
     }
     else if (resp == "2")
     {
+        //Checking if data,txt exists before starting a steamreader
         if (File.Exists(dir + "\\data.txt"))
         {
-            Console.WriteLine("File found!");
             StreamReader sr = new StreamReader(dir + "\\data.txt");
-            
+            while (sr.ReadLine() != null)
+            {
+                currentLine = sr.ReadLine();
+                Console.WriteLine(currentLine);
+                
+            }
+
         }
         else{
             Console.WriteLine("Error: No data file found");
