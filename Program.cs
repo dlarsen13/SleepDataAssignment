@@ -2,7 +2,7 @@
 bool running = true;
 string currentLine;
 string[] commaSplit;
-
+DateTime entryDate;
 
 // ask for input
 while(running)
@@ -58,8 +58,11 @@ while(running)
             while (sr.ReadLine() != null)
             {
                 currentLine = sr.ReadLine();
-                Console.WriteLine(currentLine);
-                
+                commaSplit = currentLine.Split(",");
+                entryDate = Convert.ToDateTime(commaSplit[0]);
+                Console.WriteLine("Week of{0: MMM, dd, yyyy}", entryDate);
+                Console.WriteLine(" Su Mo Tu We Th Fr Sa");
+                Console.WriteLine(" -- -- -- -- -- -- --");
             }
 
         }
