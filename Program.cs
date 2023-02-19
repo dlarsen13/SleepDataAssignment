@@ -2,7 +2,9 @@
 bool running = true;
 string currentLine;
 string[] commaSplit;
+string[] pipeSplit;
 DateTime entryDate;
+List<string> pipeSplitter = new List<string>();
 
 // ask for input
 while(running)
@@ -55,7 +57,7 @@ while(running)
         if (File.Exists(dir + "\\data.txt"))
         {
             StreamReader sr = new StreamReader(dir + "\\data.txt");
-            while (sr.ReadLine() != null)
+            do
             {
                 currentLine = sr.ReadLine();
                 commaSplit = currentLine.Split(",");
@@ -63,9 +65,19 @@ while(running)
                 Console.WriteLine("Week of{0: MMM, dd, yyyy}", entryDate);
                 Console.WriteLine(" Su Mo Tu We Th Fr Sa");
                 Console.WriteLine(" -- -- -- -- -- -- --");
-            }
-
+                pipeSplitter.AddRange(commaSplit);
+                pipeSplitter.RemoveAt(0);
+                currentLine = String.Join('|', pipeSplitter);
+                pipeSplit = currentLine.Split("|");
+                foreach (string s in pipeSplit)
+                {
+                    Console.Write($"{s} ");
+                }
+                Console.WriteLine($"\n");
+                pipeSplitter.Clear();
+            }while (sr.Peek() > 0);
         }
+        
         else{
             Console.WriteLine("Error: No data file found");
         }
